@@ -1,19 +1,22 @@
 import React from 'react';
+import { Observable, empty } from 'rxjs';
 import { makeStyles } from '@material-ui/core/styles';
 import { FormControl, Select, InputLabel, MenuItem } from '@material-ui/core';
 import { connect } from 'react-redux';
+import { pizzaSize, crustType, extraToppings, order } from '../api/model';
+import { IPizzaAppState } from '../Store/PizzaAppStore';
 
 interface Props {
 
 }
-interface state {
+interface orderFormState {
 
 }
 interface ReduxStateProps {
-
+    order: order;
 }
 interface DispatchProps {
-
+    onSetOrder: (event: React.ChangeEvent<{name?: string | undefined; value: unknown;}>, child: React.ReactNode) => void | undefined;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -26,34 +29,34 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const OrderFormDump = () => {
+const OrderFormDump: React.StatelessComponent<Props & ReduxStateProps & DispatchProps> = (props) => {
+    const { order, onSetOrder } = props;
     const classes = useStyles();
-    const [age, setAge] = React.useState('');
+    const [pizzaSize, setPizzaSize] = React.useState('small');
     return (
         <div>
             <FormControl variant="outlined" className={classes.formControl}>
-                <InputLabel id="demo-simple-select-outlined-label">Age</InputLabel>
+                <InputLabel id="demo-simple-select-outlined-label">Pizza Size</InputLabel>
                 <Select
                     labelId="demo-simple-select-outlined-label"
                     id="demo-simple-select-outlined"
-                    value={age}
-                    onChange={() => { }}
-                    label="Age"
-                >
+                    value={order.size}
+                    onChange={onSetOrder}
+                    label="Pizza Size">
                     <MenuItem value="">
                         <em>None</em>
                     </MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={'small'}>Small($8)</MenuItem>
+                    <MenuItem value={'medium'}>Medium($10)</MenuItem>
+                    <MenuItem value={'large'}>Large($12)</MenuItem>
                 </Select>
             </FormControl>
         </div>
     );
 }
 
-export const OrderForm = connect<ReduxStateProps, DispatchProps, Props>((state: state) => ({
-
+export const OrderForm = connect<ReduxStateProps, DispatchProps, Props, IPizzaAppState>((state) => ({
+    order: state.orderPage.order
 }), dispatch => ({
-
-}))(OrderFormDump);
+    onSetOrder: event => alert(event.target.value)
+}))(OrderFormDump)
