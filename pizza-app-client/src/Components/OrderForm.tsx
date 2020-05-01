@@ -9,6 +9,8 @@ import * as OrderActions from '../Store/actions/OrderActions';
 import { PizzaSizePanel } from './orderPages/PizzaSize';
 import { PizzaCrustPanel } from './orderPages/PizzaCrust';
 import { PizzaToppingsPanel } from './orderPages/PizzaToppings';
+import { CheckoutPanel } from './orderPages/CheckoutPage';
+
 
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
@@ -44,7 +46,7 @@ function getSteps() {
 const OrderFormDump: React.StatelessComponent<Props & ReduxStateProps & DispatchProps> = (props) => {
     const { pizzaSize } = props;
     const classes = useStyles();
-    const [activeStep, setActiveStep] = React.useState(2);
+    const [activeStep, setActiveStep] = React.useState(3);
     const handleNext = () => {
         setActiveStep(prevActiveStep => prevActiveStep + 1);
     };
@@ -53,7 +55,7 @@ const OrderFormDump: React.StatelessComponent<Props & ReduxStateProps & Dispatch
     };
     const steps = getSteps();
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', height: 'calc(100% - 65px)'}}>
+        <div style={{ display: 'flex', flexDirection: 'column', height: 'calc(100% - 65px)' }}>
             <Stepper activeStep={activeStep} alternativeLabel>
                 {steps.map(label => (
                     <Step key={label}>
@@ -75,7 +77,7 @@ const OrderFormDump: React.StatelessComponent<Props & ReduxStateProps & Dispatch
                     {activeStep === 0 && <PizzaSizePanel />}
                     {activeStep === 1 && <PizzaCrustPanel />}
                     {activeStep === 2 && <PizzaToppingsPanel />}
-                    {activeStep === 3 && <h1>Proceed to checkout</h1>}
+                    {activeStep === 3 && <CheckoutPanel />}
                 </div>
                 <div className={'navButton'}>
                     <Button

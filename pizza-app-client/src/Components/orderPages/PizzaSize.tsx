@@ -14,21 +14,7 @@ interface ReduxStateProps {
 interface DispatchProps {
     onSetPizzaSize: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
 }
-const getPizzaSize = (innerHTML: string | undefined): pizzaSize => {
-    if (innerHTML !== undefined) {
-        switch (innerHTML) {
-            case 'Small':
-                return 'small';
-            case 'Medium':
-                return 'medium';
-            case 'Large':
-                return 'large';
-            default:
-                return undefined;
-        }
-    }
-    return undefined;
-}
+
 const getClassName = (pizzaSize: pizzaSize, cardOptionLabel: pizzaSize): string => pizzaSize == cardOptionLabel ? 'cardOption cardSelected' : 'cardOption';
 
 const PizzaSizePanelDump: React.StatelessComponent<Props & ReduxStateProps & DispatchProps> = (props) => {
@@ -38,15 +24,15 @@ const PizzaSizePanelDump: React.StatelessComponent<Props & ReduxStateProps & Dis
             <h1 className={'pageTitle'}>Pizza Size</h1>
             <div style={{ height: '100%', flex: 1 }}>
                 <div style={{ display: 'flex', height: 'calc(100% - 20px)' }}>
-                    <Card onClick={onSetPizzaSize} className={getClassName(pizzaSize, 'small')}>
+                    <Card onClick={onSetPizzaSize} className={getClassName(pizzaSize, 'Small')}>
                         <div className={'cardOptionImage'} style={{ backgroundImage: 'url(https://tinyurl.com/yd29xtya)' }}></div>
                         <div className={'cardOptionLabel'}>Small</div>
                     </Card>
-                    <Card onClick={onSetPizzaSize} className={getClassName(pizzaSize, 'medium')}>
+                    <Card onClick={onSetPizzaSize} className={getClassName(pizzaSize, 'Medium')}>
                         <div className={'cardOptionImage'} style={{ backgroundImage: 'url(https://tinyurl.com/yd29xtya)' }}></div>
                         <div className={'cardOptionLabel'}>Medium</div>
                     </Card>
-                    <Card onClick={onSetPizzaSize} className={getClassName(pizzaSize, 'large')}>
+                    <Card onClick={onSetPizzaSize} className={getClassName(pizzaSize, 'Large')}>
                         <div className={'cardOptionImage'} style={{ backgroundImage: 'url(https://tinyurl.com/yd29xtya)' }}></div>
                         <div className={'cardOptionLabel'}>Large</div>
                     </Card>
@@ -59,6 +45,6 @@ const PizzaSizePanelDump: React.StatelessComponent<Props & ReduxStateProps & Dis
 export const PizzaSizePanel = connect<ReduxStateProps, DispatchProps, Props, IPizzaAppState>((state) => ({
     pizzaSize: state.orderPage.pizzaSize
 }), dispatch => ({
-    onSetPizzaSize: event => dispatch(OrderActions.setPizzaSize(getPizzaSize(event.currentTarget.lastElementChild?.innerHTML)))
+    onSetPizzaSize: event => dispatch(OrderActions.setPizzaSize(event.currentTarget.lastElementChild?.innerHTML as pizzaSize))
 }))(PizzaSizePanelDump)
 
