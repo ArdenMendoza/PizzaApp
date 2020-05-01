@@ -3,14 +3,15 @@ import { Observable, empty } from 'rxjs';
 import { makeStyles } from '@material-ui/core/styles';
 import { Stepper, Step, StepLabel, Card, CardContent, CardHeader, Avatar, IconButton, Button } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { pizzaSize, crustType, extraToppings, order } from '../api/model';
+import { pizzaSize, crustType, extraTopping } from '../api/model';
 import { IPizzaAppState } from '../Store/PizzaAppStore';
 import * as OrderActions from '../Store/actions/OrderActions';
 import { PizzaSizePanel } from './orderPages/PizzaSize';
+import { PizzaCrustPanel } from './orderPages/PizzaCrust';
+import { PizzaToppingsPanel } from './orderPages/PizzaToppings';
+
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
-
-
 
 interface Props {
 
@@ -43,7 +44,7 @@ function getSteps() {
 const OrderFormDump: React.StatelessComponent<Props & ReduxStateProps & DispatchProps> = (props) => {
     const { pizzaSize } = props;
     const classes = useStyles();
-    const [activeStep, setActiveStep] = React.useState(0);
+    const [activeStep, setActiveStep] = React.useState(2);
     const handleNext = () => {
         setActiveStep(prevActiveStep => prevActiveStep + 1);
     };
@@ -70,10 +71,10 @@ const OrderFormDump: React.StatelessComponent<Props & ReduxStateProps & Dispatch
                         <KeyboardArrowLeftIcon htmlColor={'#fff'} fontSize={'large'} />
                     </Button>
                 </div>
-                <div style={{flex: 1, overflow: 'hidden'}}>
+                <div style={{ flex: 1, overflow: 'hidden' }}>
                     {activeStep === 0 && <PizzaSizePanel />}
-                    {activeStep === 1 && <h1>Crust type</h1>}
-                    {activeStep === 2 && <h1>Extra toppings</h1>}
+                    {activeStep === 1 && <PizzaCrustPanel />}
+                    {activeStep === 2 && <PizzaToppingsPanel />}
                     {activeStep === 3 && <h1>Proceed to checkout</h1>}
                 </div>
                 <div className={'navButton'}>

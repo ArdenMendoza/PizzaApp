@@ -40,7 +40,7 @@
 }
 
 html, body, div#root, .App {
-  height: 100%
+  height: 100%;
 }
 
 .cardOption {
@@ -52,8 +52,18 @@ html, body, div#root, .App {
   flex-direction: column;
 }
 
-.cardOption:hover {
+.cardOptionInline-3:hover, .cardOption:hover {
   box-shadow: 10px 10px 10px grey;
+}
+
+.cardOptionInline-3 {
+  margin: 5px;
+  height: 300px;
+  width: calc(33% - 10px);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  float: left;
 }
 
 .cardOptionImage {

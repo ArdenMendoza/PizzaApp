@@ -64,12 +64,12 @@ const useStyles = makeStyles((theme) => ({
 export const Frame = () => {
     const classes = useStyles();
     return <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-        <AppBar position="static">
+        <AppBar position="static" style={{width: '100%'}}>
             <Toolbar>
                 <Typography className={classes.title} variant="h6" noWrap> Pizza Castle Order Online </Typography>
             </Toolbar>
         </AppBar>
-        <div style={{minWidth: '1400px', maxWidth: '2000px', margin: '0px auto', flex: 1}}>
+        <div style={{ width: '100%', minWidth: '500px', maxWidth: '1700px', margin: '0px auto', flex: 1}}>
             <OrderForm />
         </div>
     </div>
