@@ -26,32 +26,23 @@ const getClassNames = (reduxExtraToppings: extraTopping[], t: extraTopping): str
 
 const PizzaToppingsPanelDump: React.StatelessComponent<Props & ReduxStateProps & DispatchProps> = (props) => {
     const { reduxExtraToppings, onSetPizzaToppings } = props;
-    const toppings: extraTopping[] = ['Bacon', 'Black olives', 'Pepperoni', 'Onions', 'Pineapple'];
+    const toppings: extraTopping[] = ['Pepperoni', 'Mushrooms', 'Onions', 'Sausage', 'Bacon', 'Extra cheese', 'Black olives', 'Green peppers', 'Pineapple', 'Spinach'];
     return (
-        <div className={'orderPage'} style={{ height: 'calc(100% - 40px)', margin: '20px', display: 'flex', flexDirection: 'column' }}>
-            <CardHeader title="Pizza size" subheader="Please select a pizza size" />
-            <CardContent style={{ height: '100%', flex: 1, display: 'flex' }}>
-                <div style={{ height: '100%', flex: 1, border: 'red dotted 1px', padding: '10px' }}>
-                    {
-                        toppings.map(t => {
-                            return (
-                                <Card onClick={onSetPizzaToppings} className={getClassNames(reduxExtraToppings, t)}>
-                                    <div className={'cardOptionImage'} style={{ backgroundImage: 'url(https://tinyurl.com/yd29xtya)' }}></div>
-                                    <div className={'cardOptionLabel'}>{t}</div>
-                                </Card>
-                            );
-                        })
-                    }
-                </div>
-                <div style={{ border: 'red dotted 1px', width: '400px' }}>
-                    <h2>Toppings summary</h2>
-                    {
-                        reduxExtraToppings.map(t => {
-                            return <div>{t}</div>
-                        })
-                    }
-                </div>
-            </CardContent>
+        <div className={'orderPage'}>
+            <h1 className={'pageTitle'}>Pizza Toppings</h1>
+            <div className={'pageSubtext'}>Please note that the first 3 toppings are free. Each new addition after the third one costs $0.50 each.</div>
+            <div style={{ flex: 1, overflow: 'auto', flexWrap: 'wrap' }}>
+                {
+                    toppings.map(t => {
+                        return (
+                            <Card onClick={onSetPizzaToppings} className={getClassNames(reduxExtraToppings, t)}>
+                                <div className={'cardOptionImage'} style={{ backgroundImage: 'url(https://tinyurl.com/yd29xtya)' }}></div>
+                                <div className={'cardOptionLabel'}>{t}</div>
+                            </Card>
+                        );
+                    })
+                }
+            </div>
         </div>
     );
 }

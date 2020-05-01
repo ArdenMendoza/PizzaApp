@@ -32,10 +32,10 @@ const getClassName = (pizzaCrust: crustType, cardOptionLabel: crustType): string
 const PizzaCrustPanelDump: React.StatelessComponent<Props & ReduxStateProps & DispatchProps> = (props) => {
     const { crustType, onSetPizzaCrust } = props;
     return (
-        <div className={'orderPage'} style={{ height: 'calc(100% - 40px)', margin: '20px', display: 'flex', flexDirection: 'column'}}>
-            <CardHeader title="Pizza Crust" subheader="Please select a pizza crust" />
-            <CardContent style={{ height: '100%', flex: 1 }}>
-                <div style={{ display: 'flex', height: '100%' }}>
+        <div className={'orderPage'}>
+            <h1 className={'pageTitle'}>Pizza Crust</h1>
+            <div style={{ height: '100%', flex: 1 }}>
+                <div style={{ display: 'flex', height: 'calc(100% - 20px)' }}>
                     <Card onClick={onSetPizzaCrust} className={getClassName(crustType, 'thin')}>
                         <div className={'cardOptionImage'} style={{ backgroundImage: 'url(https://tinyurl.com/yd29xtya)' }}></div>
                         <div className={'cardOptionLabel'}>Thin</div>
@@ -45,7 +45,7 @@ const PizzaCrustPanelDump: React.StatelessComponent<Props & ReduxStateProps & Di
                         <div className={'cardOptionLabel'}>Thick</div>
                     </Card>
                 </div>
-            </CardContent>
+            </div>
         </div>
     );
 }

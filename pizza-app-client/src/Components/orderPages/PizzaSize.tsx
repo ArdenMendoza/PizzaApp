@@ -34,10 +34,10 @@ const getClassName = (pizzaSize: pizzaSize, cardOptionLabel: pizzaSize): string 
 const PizzaSizePanelDump: React.StatelessComponent<Props & ReduxStateProps & DispatchProps> = (props) => {
     const { pizzaSize, onSetPizzaSize } = props;
     return (
-        <div className={'orderPage'} style={{ height: 'calc(100% - 40px)', margin: '20px', display: 'flex', flexDirection: 'column'}}>
-            <CardHeader title="Pizza size" subheader="Please select a pizza size" />
-            <CardContent style={{ height: '100%', flex: 1 }}>
-                <div style={{ display: 'flex', height: '100%' }}>
+        <div className={'orderPage'}>
+            <h1 className={'pageTitle'}>Pizza Size</h1>
+            <div style={{ height: '100%', flex: 1 }}>
+                <div style={{ display: 'flex', height: 'calc(100% - 20px)' }}>
                     <Card onClick={onSetPizzaSize} className={getClassName(pizzaSize, 'small')}>
                         <div className={'cardOptionImage'} style={{ backgroundImage: 'url(https://tinyurl.com/yd29xtya)' }}></div>
                         <div className={'cardOptionLabel'}>Small</div>
@@ -51,7 +51,7 @@ const PizzaSizePanelDump: React.StatelessComponent<Props & ReduxStateProps & Dis
                         <div className={'cardOptionLabel'}>Large</div>
                     </Card>
                 </div>
-            </CardContent>
+            </div>
         </div>
     );
 }
