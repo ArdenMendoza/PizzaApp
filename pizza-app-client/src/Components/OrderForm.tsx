@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-    return ['Select pizza size', 'Select crust type', 'Select extra toppings'];
+    return ['Select pizza size', 'Select crust type', 'Select extra toppings', 'Proceed to checkout'];
 }
 
 
@@ -70,10 +70,13 @@ const OrderFormDump: React.StatelessComponent<Props & ReduxStateProps & Dispatch
                         <KeyboardArrowLeftIcon htmlColor={'#fff'} fontSize={'large'} />
                     </Button>
                 </div>
-                <PizzaSizePanel />
+                <div style={{flex: 1, overflow: 'hidden'}}>
+                    {activeStep === 0 && <PizzaSizePanel />}
+                    {activeStep === 1 && <PizzaSizePanel />}
+                </div>
                 <div className={'navButton'}>
                     <Button
-                        disabled={pizzaSize === undefined}
+                        disabled={pizzaSize === undefined || activeStep === 3}
                         variant="contained"
                         color="primary"
                         onClick={handleNext}>

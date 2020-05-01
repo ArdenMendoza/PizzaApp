@@ -14,11 +14,27 @@ interface ReduxStateProps {
 interface DispatchProps {
     onSetPizzaSize: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
 }
+const getPizzaSize = (innerHTML: string | undefined): pizzaSize => {
+    if (innerHTML !== undefined) {
+        switch (innerHTML) {
+            case 'Small':
+                return 'small';
+            case 'Medium':
+                return 'medium';
+            case 'Large':
+                return 'large';
+            default:
+                return undefined;
+        }
+    }
+    return undefined;
+}
+const getClassName = (pizzaSize: pizzaSize, cardOptionLabel: pizzaSize): string => pizzaSize == cardOptionLabel ? 'cardOption cardSelected' : 'cardOption';
 
 const PizzaSizePanelDump: React.StatelessComponent<Props & ReduxStateProps & DispatchProps> = (props) => {
     const { pizzaSize, onSetPizzaSize } = props;
     return (
-        <div style={{ height: 'calc(100% - 40px)', margin: '20px', display: 'flex', flexDirection: 'column', flex: 1 }}>
+        <div className={'orderPage'} style={{ height: 'calc(100% - 40px)', margin: '20px', display: 'flex', flexDirection: 'column'}}>
             <CardHeader title="Pizza size" subheader="Please select a pizza size" />
             <CardContent style={{ height: '100%', flex: 1 }}>
                 <div style={{ display: 'flex', height: '100%' }}>
@@ -46,20 +62,3 @@ export const PizzaSizePanel = connect<ReduxStateProps, DispatchProps, Props, IPi
     onSetPizzaSize: event => dispatch(OrderActions.setPizzaSize(getPizzaSize(event.currentTarget.lastElementChild?.innerHTML)))
 }))(PizzaSizePanelDump)
 
-const getPizzaSize = (innerHTML: string | undefined): pizzaSize => {
-    if (innerHTML !== undefined) {
-        switch (innerHTML) {
-            case 'Small':
-                return 'small';
-            case 'Medium':
-                return 'medium';
-            case 'Large':
-                return 'large';
-            default:
-                return undefined;
-        }
-    }
-    return undefined;
-}
-
-const getClassName = (pizzaSize: pizzaSize, cardOptionLabel: pizzaSize): string => pizzaSize == cardOptionLabel ? 'cardOption cardSelected' : 'cardOption';

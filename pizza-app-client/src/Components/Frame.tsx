@@ -66,7 +66,7 @@ export const Frame = () => {
     return <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
         <AppBar position="static">
             <Toolbar>
-                <Typography className={classes.title} variant="h6" noWrap> Pizza Castle </Typography>
+                <Typography className={classes.title} variant="h6" noWrap> Pizza Castle Order Online </Typography>
             </Toolbar>
         </AppBar>
         <OrderForm />
