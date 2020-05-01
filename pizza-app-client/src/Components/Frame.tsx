@@ -69,6 +69,8 @@ export const Frame = () => {
                 <Typography className={classes.title} variant="h6" noWrap> Pizza Castle Order Online </Typography>
             </Toolbar>
         </AppBar>
-        <OrderForm />
+        <div style={{minWidth: '1400px', maxWidth: '2000px', margin: '0px auto', flex: 1}}>
+            <OrderForm />
+        </div>
     </div>
 }

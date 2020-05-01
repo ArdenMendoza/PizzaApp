@@ -52,7 +52,7 @@ const OrderFormDump: React.StatelessComponent<Props & ReduxStateProps & Dispatch
     };
     const steps = getSteps();
     return (
-        <div style={{ flex: '1', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
             <Stepper activeStep={activeStep} alternativeLabel>
                 {steps.map(label => (
                     <Step key={label}>
@@ -72,7 +72,9 @@ const OrderFormDump: React.StatelessComponent<Props & ReduxStateProps & Dispatch
                 </div>
                 <div style={{flex: 1, overflow: 'hidden'}}>
                     {activeStep === 0 && <PizzaSizePanel />}
-                    {activeStep === 1 && <PizzaSizePanel />}
+                    {activeStep === 1 && <h1>Crust type</h1>}
+                    {activeStep === 2 && <h1>Extra toppings</h1>}
+                    {activeStep === 3 && <h1>Proceed to checkout</h1>}
                 </div>
                 <div className={'navButton'}>
                     <Button

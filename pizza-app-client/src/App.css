@@ -59,6 +59,7 @@ html, body, div#root, .App {
 .cardOptionImage {
   flex: 1;
   background-position: center;
+  background-color: white;
 }
 
 .cardOptionLabel {
