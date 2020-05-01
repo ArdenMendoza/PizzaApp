@@ -1,10 +1,16 @@
 import React from 'react';
 import { Observable, empty } from 'rxjs';
 import { makeStyles } from '@material-ui/core/styles';
-import { FormControl, Select, InputLabel, MenuItem } from '@material-ui/core';
+import { Stepper, Step, StepLabel, Card, CardContent, CardHeader, Avatar, IconButton, Button } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { pizzaSize, crustType, extraToppings, order } from '../api/model';
 import { IPizzaAppState } from '../Store/PizzaAppStore';
+import * as OrderActions from '../Store/actions/OrderActions';
+import { PizzaSizePanel } from './orderPages/PizzaSize';
+import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
+import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+
+
 
 interface Props {
 
@@ -13,10 +19,10 @@ interface orderFormState {
 
 }
 interface ReduxStateProps {
-    order: order;
+    pizzaSize: pizzaSize;
 }
 interface DispatchProps {
-    onSetOrder: (event: React.ChangeEvent<{name?: string | undefined; value: unknown;}>, child: React.ReactNode) => void | undefined;
+    // onSetPizzaSize: (event: React.ChangeEvent<{ name?: string | undefined; value: pizzaSize; }>, child: React.ReactNode) => void | undefined;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -29,34 +35,57 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+function getSteps() {
+    return ['Select pizza size', 'Select crust type', 'Select extra toppings'];
+}
+
+
 const OrderFormDump: React.StatelessComponent<Props & ReduxStateProps & DispatchProps> = (props) => {
-    const { order, onSetOrder } = props;
+    const { pizzaSize } = props;
     const classes = useStyles();
-    const [pizzaSize, setPizzaSize] = React.useState('small');
+    const [activeStep, setActiveStep] = React.useState(0);
+    const handleNext = () => {
+        setActiveStep(prevActiveStep => prevActiveStep + 1);
+    };
+    const handleBack = () => {
+        setActiveStep(prevActiveStep => prevActiveStep - 1);
+    };
+    const steps = getSteps();
     return (
-        <div>
-            <FormControl variant="outlined" className={classes.formControl}>
-                <InputLabel id="demo-simple-select-outlined-label">Pizza Size</InputLabel>
-                <Select
-                    labelId="demo-simple-select-outlined-label"
-                    id="demo-simple-select-outlined"
-                    value={order.size}
-                    onChange={onSetOrder}
-                    label="Pizza Size">
-                    <MenuItem value="">
-                        <em>None</em>
-                    </MenuItem>
-                    <MenuItem value={'small'}>Small($8)</MenuItem>
-                    <MenuItem value={'medium'}>Medium($10)</MenuItem>
-                    <MenuItem value={'large'}>Large($12)</MenuItem>
-                </Select>
-            </FormControl>
+        <div style={{ flex: '1', display: 'flex', flexDirection: 'column' }}>
+            <Stepper activeStep={activeStep} alternativeLabel>
+                {steps.map(label => (
+                    <Step key={label}>
+                        <StepLabel>{label}</StepLabel>
+                    </Step>
+                ))}
+            </Stepper>
+            <div style={{ width: '80%', margin: '0px auto', flex: 1, display: 'flex' }}>
+                <div className={'navButton'}>
+                    <Button
+                        disabled={activeStep === 0}
+                        variant="contained"
+                        color="primary"
+                        onClick={handleBack}>
+                        <KeyboardArrowLeftIcon htmlColor={'#fff'} fontSize={'large'} />
+                    </Button>
+                </div>
+                <PizzaSizePanel />
+                <div className={'navButton'}>
+                    <Button
+                        disabled={pizzaSize === undefined}
+                        variant="contained"
+                        color="primary"
+                        onClick={handleNext}>
+                        <KeyboardArrowRightIcon htmlColor={'#fff'} fontSize={'large'} />
+                    </Button>
+                </div>
+            </div>
         </div>
     );
 }
 
 export const OrderForm = connect<ReduxStateProps, DispatchProps, Props, IPizzaAppState>((state) => ({
-    order: state.orderPage.order
+    pizzaSize: state.orderPage.pizzaSize
 }), dispatch => ({
-    onSetOrder: event => alert(event.target.value)
 }))(OrderFormDump)

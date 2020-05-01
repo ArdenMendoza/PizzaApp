@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const Frame = () => {
     const classes = useStyles();
-    return <div style={{ height: '100%' }}>
+    return <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
         <AppBar position="static">
             <Toolbar>
                 <Typography className={classes.title} variant="h6" noWrap> Pizza Castle </Typography>

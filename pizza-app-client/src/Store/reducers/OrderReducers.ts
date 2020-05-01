@@ -1,26 +1,24 @@
-import { ISetOrderAction } from '../actions/OrderActions';
-import { order } from '../../api/model';
+import { ISetPizzaSizeAction } from '../actions/OrderActions';
+import { pizzaSize, crustType } from '../../api/model';
 // export const combineReducers: <S, T extends ReducersMapObject>(reducers: T) => Reducer<S> = cr;
 export interface IOrderPageState {
-    order: order;
+    pizzaSize: pizzaSize;
+    crustType: crustType;
+    extraToppings: [] | undefined;
 }
 
 const initialState: IOrderPageState = {
-    order: {
-        size: undefined,
-        crustType: undefined,
-        extraToppings: []
-    },
+    pizzaSize: undefined,
+    crustType: undefined,
+    extraToppings: undefined,
 };
 
-export const orderPageReducer = (state = initialState, action: ISetOrderAction): IOrderPageState => {
+export const orderPageReducer = (state = initialState, action: ISetPizzaSizeAction): IOrderPageState => {
     switch (action.type) {
-        case 'SET_ORDER':
+        case 'SET_PIZZA_SIZE':
             return {
                 ...state,
-                order: {
-                    ...state.order,
-                }
+                pizzaSize: action.payload
             }
     }
     return state;
