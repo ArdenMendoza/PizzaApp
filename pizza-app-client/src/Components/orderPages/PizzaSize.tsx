@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 import { pizzaSize } from '../../api/model';
 import { IPizzaAppState } from '../../Store/PizzaAppStore';
 import * as OrderActions from '../../Store/actions/OrderActions';
+import sizeSmall from '../../images/size_small.png';
+import sizeMedium from '../../images/size_medium.png';
+import sizeLarge from '../../images/size_large.png';
 
 interface Props {
 }
@@ -25,15 +28,16 @@ const PizzaSizePanelDump: React.StatelessComponent<Props & ReduxStateProps & Dis
             <div style={{ height: '100%', flex: 1 }}>
                 <div style={{ display: 'flex', height: 'calc(100% - 20px)' }}>
                     <Card onClick={onSetPizzaSize} className={getClassName(pizzaSize, 'Small')}>
-                        <div className={'cardOptionImage'} style={{ backgroundImage: 'url(https://tinyurl.com/yd29xtya)' }}></div>
+                        <div className={'cardOptionImage'} style={{ backgroundImage: 'url(' + sizeSmall + ')' }}>
+                        </div>
                         <div className={'cardOptionLabel'}>Small</div>
                     </Card>
                     <Card onClick={onSetPizzaSize} className={getClassName(pizzaSize, 'Medium')}>
-                        <div className={'cardOptionImage'} style={{ backgroundImage: 'url(https://tinyurl.com/yd29xtya)' }}></div>
+                        <div className={'cardOptionImage'} style={{ backgroundImage: 'url(' + sizeMedium + ')' }}></div>
                         <div className={'cardOptionLabel'}>Medium</div>
                     </Card>
                     <Card onClick={onSetPizzaSize} className={getClassName(pizzaSize, 'Large')}>
-                        <div className={'cardOptionImage'} style={{ backgroundImage: 'url(https://tinyurl.com/yd29xtya)' }}></div>
+                        <div className={'cardOptionImage'} style={{ backgroundImage: 'url(' + sizeLarge + ')' }}></div>
                         <div className={'cardOptionLabel'}>Large</div>
                     </Card>
                 </div>

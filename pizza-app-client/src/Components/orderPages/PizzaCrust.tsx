@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { crustType } from '../../api/model';
 import { IPizzaAppState } from '../../Store/PizzaAppStore';
 import * as OrderActions from '../../Store/actions/OrderActions';
+import crustThick from '../../images/crust_thick.jpg';
+import crustThin from '../../images/crust_thin.jpg';
 
 interface Props {
 }
@@ -25,11 +27,11 @@ const PizzaCrustPanelDump: React.StatelessComponent<Props & ReduxStateProps & Di
             <div style={{ height: '100%', flex: 1 }}>
                 <div style={{ display: 'flex', height: 'calc(100% - 20px)' }}>
                     <Card onClick={onSetPizzaCrust} className={getClassName(crustType, 'Thin')}>
-                        <div className={'cardOptionImage'} style={{ backgroundImage: 'url(https://tinyurl.com/yd29xtya)' }}></div>
+                        <div className={'cardOptionImage'} style={{ backgroundImage: 'url(' + crustThin + ')' }}></div>
                         <div className={'cardOptionLabel'}>Thin</div>
                     </Card>
                     <Card onClick={onSetPizzaCrust} className={getClassName(crustType, 'Thick')}>
-                        <div className={'cardOptionImage'} style={{ backgroundImage: 'url(https://tinyurl.com/yd29xtya)' }}></div>
+                        <div className={'cardOptionImage'} style={{ backgroundImage: 'url(' + crustThick + ')' }}></div>
                         <div className={'cardOptionLabel'}>Thick</div>
                     </Card>
                 </div>

@@ -46,7 +46,7 @@ function getSteps() {
 const OrderFormDump: React.StatelessComponent<Props & ReduxStateProps & DispatchProps> = (props) => {
     const { pizzaSize } = props;
     const classes = useStyles();
-    const [activeStep, setActiveStep] = React.useState(0);
+    const [activeStep, setActiveStep] = React.useState(1);
     const handleNext = () => {
         setActiveStep(prevActiveStep => prevActiveStep + 1);
     };
