@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import { connect } from 'react-redux';
 import { extraTopping } from '../../api/model';
 import { IPizzaAppState } from '../../Store/PizzaAppStore';
@@ -67,7 +68,8 @@ const PizzaToppingsPanelDump: React.StatelessComponent<Props & ReduxStateProps &
     return (
         <div className={'orderPage'}>
             <h1 className={'pageTitle'}>Pizza Toppings</h1>
-            <div className={'pageSubtext'}>Please note that the first 3 toppings are free. Each new addition after the third one costs $0.50 each.</div>
+            <div className={'pageSubtext'}></div>
+            <Alert severity="warning">Please note that the first 3 toppings are free. Each new addition after the third one costs $0.50 each.</Alert>
             <div style={{ flex: 1, overflow: 'auto', flexWrap: 'wrap', padding: '10px' }}>
                 {
                     toppings.map(t => {
