@@ -46,7 +46,7 @@ function getSteps() {
 const OrderFormDump: React.StatelessComponent<Props & ReduxStateProps & DispatchProps> = (props) => {
     const { pizzaSize } = props;
     const classes = useStyles();
-    const [activeStep, setActiveStep] = React.useState(1);
+    const [activeStep, setActiveStep] = React.useState(0);
     const handleNext = () => {
         setActiveStep(prevActiveStep => prevActiveStep + 1);
     };
@@ -73,7 +73,7 @@ const OrderFormDump: React.StatelessComponent<Props & ReduxStateProps & Dispatch
                         <KeyboardArrowLeftIcon htmlColor={'#fff'} fontSize={'large'} />
                     </Button>
                 </div>
-                <div style={{ flex: 1, height: '100%' }}>
+                <div style={{ flex: 1, height: '100%', margin: '0px 20px' }}>
                     {activeStep === 0 && <PizzaSizePanel />}
                     {activeStep === 1 && <PizzaCrustPanel />}
                     {activeStep === 2 && <PizzaToppingsPanel />}
