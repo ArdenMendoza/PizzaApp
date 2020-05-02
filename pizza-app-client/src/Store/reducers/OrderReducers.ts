@@ -1,4 +1,4 @@
-import { ISetPizzaSizeAction, ISetPizzaCrustAction, IAddPizzaToppingAction } from '../actions/OrderActions';
+import { ISetPizzaSizeAction, ISetPizzaCrustAction, IAddedPizzaToppingAction } from '../actions/OrderActions';
 import { pizzaSize, crustType, extraTopping } from '../../api/model';
 // export const combineReducers: <S, T extends ReducersMapObject>(reducers: T) => Reducer<S> = cr;
 export interface IOrderPageState {
@@ -13,7 +13,7 @@ const initialState: IOrderPageState = {
     extraToppings: [],
 };
 
-export const orderPageReducer = (state = initialState, action: ISetPizzaSizeAction | ISetPizzaCrustAction | IAddPizzaToppingAction): IOrderPageState => {
+export const orderPageReducer = (state = initialState, action: ISetPizzaSizeAction | ISetPizzaCrustAction | IAddedPizzaToppingAction): IOrderPageState => {
     switch (action.type) {
         case 'SET_PIZZA_SIZE':
             return {
@@ -25,17 +25,10 @@ export const orderPageReducer = (state = initialState, action: ISetPizzaSizeActi
                 ...state,
                 crustType: action.payload
             }
-        case 'ADD_PIZZA_TOPPINGS':
-            let toppings: extraTopping[] = state.extraToppings;
-            // !toppings.includes(action.payload) ? toppings.push(action.payload) : toppings.filter(f => f != action.payload);
-            if (toppings.includes(action.payload)) {
-                toppings = toppings.filter(f => f != action.payload);
-            } else {
-                toppings.push(action.payload);
-            }
+        case 'ADDED_PIZZA_TOPPINGS':
             return {
                 ...state,
-                extraToppings: [...toppings]
+                extraToppings: [...action.payload]
             }
     }
     return state;

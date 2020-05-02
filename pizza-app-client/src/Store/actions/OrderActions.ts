@@ -30,3 +30,9 @@ export const addPizzaToppings = (payload: extraTopping): IAddPizzaToppingAction 
     type: 'ADD_PIZZA_TOPPINGS',
     payload
 });
+
+export interface IAddedPizzaToppingAction extends IAction<extraTopping[]> { type: 'ADDED_PIZZA_TOPPINGS';  }
+export const addedPizzaToppings = (payload: extraTopping[]): IAddedPizzaToppingAction => ({
+    type: 'ADDED_PIZZA_TOPPINGS',
+    payload
+});

@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware, compose, Action } from 'redux';
 import { combineEpics, createEpicMiddleware, Epic } from 'redux-observable';
-import { SendOrderEpic } from './epics/OrderEpics';
+import { AddToppingEpic } from './epics/OrderEpics';
 import { orderPageReducer, IOrderPageState } from './reducers/OrderReducers';
 
 export interface IPizzaAppState {
@@ -11,7 +11,7 @@ export interface IPizzaAppState {
 export type IPizzaAppEpic<T extends Action<any>> = Epic<T, any, IPizzaAppState>;
 
 const configureEpic = () => {
-    return combineEpics(SendOrderEpic);
+    return combineEpics(AddToppingEpic);
 }
 
 const configureReducer = () =>
