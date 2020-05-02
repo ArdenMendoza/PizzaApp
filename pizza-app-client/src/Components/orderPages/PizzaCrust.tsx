@@ -41,6 +41,6 @@ const PizzaCrustPanelDump: React.StatelessComponent<Props & ReduxStateProps & Di
 export const PizzaCrustPanel = connect<ReduxStateProps, DispatchProps, Props, IPizzaAppState>((state) => ({
     crustType: state.orderPage.crustType
 }), dispatch => ({
-    onSetPizzaCrust: event => dispatch(OrderActions.setPizzaCrust(event.currentTarget.lastElementChild?.innerHTML as crustType))
+    onSetPizzaCrust: event => dispatch(OrderActions.pizzaCrustSelect(event.currentTarget.lastElementChild?.innerHTML as crustType))
 }))(PizzaCrustPanelDump)
 

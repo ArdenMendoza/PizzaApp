@@ -45,6 +45,6 @@ const PizzaSizePanelDump: React.StatelessComponent<Props & ReduxStateProps & Dis
 export const PizzaSizePanel = connect<ReduxStateProps, DispatchProps, Props, IPizzaAppState>((state) => ({
     pizzaSize: state.orderPage.pizzaSize
 }), dispatch => ({
-    onSetPizzaSize: event => dispatch(OrderActions.setPizzaSize(event.currentTarget.lastElementChild?.innerHTML as pizzaSize))
+    onSetPizzaSize: event => dispatch(OrderActions.pizzaSizeSelect(event.currentTarget.lastElementChild?.innerHTML as pizzaSize))
 }))(PizzaSizePanelDump)
 

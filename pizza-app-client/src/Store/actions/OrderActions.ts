@@ -11,17 +11,24 @@ export interface IAction<P> extends ISimpleAction {
     payload: P;
 }
 
-export type ISetPizzaSizePayload = pizzaSize | undefined;
-export interface ISetPizzaSizeAction extends IAction<ISetPizzaSizePayload> { type: 'SET_PIZZA_SIZE';  }
-export const setPizzaSize = (payload: ISetPizzaSizePayload): ISetPizzaSizeAction => ({
-    type: 'SET_PIZZA_SIZE',
+export type IPizzaSizeSelectPayload = pizzaSize | undefined;
+export interface IPizzaSizeSelectAction extends IAction<IPizzaSizeSelectPayload> { type: 'PIZZA_SIZE_SELECT';  }
+export const pizzaSizeSelect = (payload: IPizzaSizeSelectPayload): IPizzaSizeSelectAction => ({
+    type: 'PIZZA_SIZE_SELECT',
     payload
 });
 
-export type ISetPizzaCrustPayload = crustType | undefined;
-export interface ISetPizzaCrustAction extends IAction<ISetPizzaCrustPayload> { type: 'SET_PIZZA_CRUST';  }
-export const setPizzaCrust = (payload: ISetPizzaCrustPayload): ISetPizzaCrustAction => ({
-    type: 'SET_PIZZA_CRUST',
+export type IPizzaSizeSelectedPayload = pizzaSize | undefined;
+export interface IPizzaSizeSelectedAction extends IAction<IPizzaSizeSelectedPayload> { type: 'PIZZA_SIZE_SELECTED';  }
+export const pizzaSizeSelected = (payload: IPizzaSizeSelectedPayload): IPizzaSizeSelectedAction => ({
+    type: 'PIZZA_SIZE_SELECTED',
+    payload
+});
+
+export type IPizzaCrustSelectPayload = crustType | undefined;
+export interface IPizzaCrustSelectAction extends IAction<IPizzaCrustSelectPayload> { type: 'PIZZA_CRUST_SELECT';  }
+export const pizzaCrustSelect = (payload: IPizzaCrustSelectPayload): IPizzaCrustSelectAction => ({
+    type: 'PIZZA_CRUST_SELECT',
     payload
 });
 
@@ -31,8 +38,8 @@ export const addPizzaToppings = (payload: extraTopping): IAddPizzaToppingAction 
     payload
 });
 
-export interface IAddedPizzaToppingAction extends IAction<extraTopping[]> { type: 'ADDED_PIZZA_TOPPINGS';  }
-export const addedPizzaToppings = (payload: extraTopping[]): IAddedPizzaToppingAction => ({
-    type: 'ADDED_PIZZA_TOPPINGS',
+export interface IPizzaToppingAddedAction extends IAction<extraTopping[]> { type: 'PIZZA_TOPPING_ADDED';  }
+export const pizzaToppingAdded = (payload: extraTopping[]): IPizzaToppingAddedAction => ({
+    type: 'PIZZA_TOPPING_ADDED',
     payload
 });
