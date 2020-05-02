@@ -6,14 +6,22 @@ import { connect } from 'react-redux';
 import { pizzaSize, crustType, extraTopping } from '../api/model';
 import { IPizzaAppState } from '../Store/PizzaAppStore';
 import * as OrderActions from '../Store/actions/OrderActions';
-import { PizzaSizePanel } from './orderPages/PizzaSize';
-import { PizzaCrustPanel } from './orderPages/PizzaCrust';
 import { PizzaToppingsPanel } from './orderPages/PizzaToppings';
 import { CheckoutPanel } from './orderPages/CheckoutPage';
-
-
+import { OrderPanel } from './orderPages/GenericOrderPage';
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+
+import sizeSmall from '../images/size_small.png';
+import sizeMedium from '../images/size_medium.png';
+import sizeLarge from '../images/size_large.png';
+import crustThin from '../images/crust_thin.jpg';
+import crustThick from '../images/crust_thick.jpg';
+
+
+import { IOrderPageState } from '../Store/reducers/OrderReducers';
+
+
 
 interface Props {
 
@@ -22,30 +30,20 @@ interface orderFormState {
 
 }
 interface ReduxStateProps {
-    pizzaSize: pizzaSize;
+    orderPage: IOrderPageState;
+    crustType: crustType;
 }
 interface DispatchProps {
-    // onSetPizzaSize: (event: React.ChangeEvent<{ name?: string | undefined; value: pizzaSize; }>, child: React.ReactNode) => void | undefined;
+    onSetPizzaSize: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
+    onSetPizzaCrust: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
 }
-
-const useStyles = makeStyles((theme) => ({
-    formControl: {
-        margin: theme.spacing(1),
-        minWidth: 120,
-    },
-    selectEmpty: {
-        marginTop: theme.spacing(2),
-    },
-}));
 
 function getSteps() {
     return ['Select pizza size', 'Select crust type', 'Select extra toppings', 'Proceed to checkout'];
 }
 
-
 const OrderFormDump: React.StatelessComponent<Props & ReduxStateProps & DispatchProps> = (props) => {
-    const { pizzaSize } = props;
-    const classes = useStyles();
+    const { orderPage, onSetPizzaSize, onSetPizzaCrust } = props;
     const [activeStep, setActiveStep] = React.useState(0);
     const handleNext = () => {
         setActiveStep(prevActiveStep => prevActiveStep + 1);
@@ -54,6 +52,35 @@ const OrderFormDump: React.StatelessComponent<Props & ReduxStateProps & Dispatch
         setActiveStep(prevActiveStep => prevActiveStep - 1);
     };
     const steps = getSteps();
+    const getOrderView = (activeStep: number) => {
+        switch (activeStep) {
+            case 0:
+                return <OrderPanel
+                    pageTitle={'Please select a Pizza size'}
+                    menuItems={[
+                        { menuLabel: 'Small', menuImageUrl: sizeSmall },
+                        { menuLabel: 'Medium', menuImageUrl: sizeMedium },
+                        { menuLabel: 'Large', menuImageUrl: sizeLarge },
+                    ]}
+                    selectedItemLabel={orderPage.pizzaSize ? orderPage.pizzaSize.valueOf() : ''}
+                    onMenuItemClick={onSetPizzaSize}
+                />
+            case 1:
+                return <OrderPanel
+                    pageTitle={'Please select pizza crust'}
+                    menuItems={[
+                        { menuLabel: 'Thin', menuImageUrl: crustThin },
+                        { menuLabel: 'Thick', menuImageUrl: crustThick },
+                    ]}
+                    selectedItemLabel={orderPage.crustType ? orderPage.crustType.valueOf() : ''}
+                    onMenuItemClick={onSetPizzaCrust}
+                />
+            case 2:
+                return <PizzaToppingsPanel />;
+            case 3:
+                return <CheckoutPanel />;
+        }
+    }
     return (
         <div style={{ display: 'flex', flexDirection: 'column', height: 'calc(100% - 65px)' }}>
             <Stepper activeStep={activeStep} alternativeLabel>
@@ -74,14 +101,11 @@ const OrderFormDump: React.StatelessComponent<Props & ReduxStateProps & Dispatch
                     </Button>
                 </div>
                 <div style={{ flex: 1, height: '100%', margin: '0px 20px' }}>
-                    {activeStep === 0 && <PizzaSizePanel />}
-                    {activeStep === 1 && <PizzaCrustPanel />}
-                    {activeStep === 2 && <PizzaToppingsPanel />}
-                    {activeStep === 3 && <CheckoutPanel />}
+                    {getOrderView(activeStep)}
                 </div>
                 <div className={'navButton'}>
                     <Button
-                        disabled={pizzaSize === undefined || activeStep === 3}
+                        disabled={orderPage.pizzaSize === undefined || activeStep === 3}
                         variant="contained"
                         color="primary"
                         onClick={handleNext}>
@@ -94,6 +118,9 @@ const OrderFormDump: React.StatelessComponent<Props & ReduxStateProps & Dispatch
 }
 
 export const OrderForm = connect<ReduxStateProps, DispatchProps, Props, IPizzaAppState>((state) => ({
-    pizzaSize: state.orderPage.pizzaSize
+    orderPage: state.orderPage,
+    crustType: state.orderPage.crustType
 }), dispatch => ({
+    onSetPizzaSize: event => dispatch(OrderActions.pizzaSizeSelect(event.currentTarget.lastElementChild?.innerHTML as pizzaSize)),
+    onSetPizzaCrust: event => dispatch(OrderActions.pizzaCrustSelect(event.currentTarget.lastElementChild?.innerHTML as crustType))
 }))(OrderFormDump)

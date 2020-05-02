@@ -70,19 +70,17 @@ const PizzaToppingsPanelDump: React.StatelessComponent<Props & ReduxStateProps &
         <div className={'orderPage'}>
             <h1 className={'pageTitle'}>Pizza Toppings</h1>
             <div className={'pageSubtext'}>Please note that the first 3 toppings are free. Each new addition after the third one costs $0.50 each.</div>
-            <div style={{ flex: 1, overflow: 'auto', flexWrap: 'wrap' }}>
-                <div style={{height: '100%'}}>
-                    {
-                        toppings.map(t => {
-                            return (
-                                <Card onClick={onSetPizzaToppings} className={getClassNames(reduxExtraToppings, t)}>
-                                    <div className={'cardOptionImage'} style={{ backgroundImage: 'url(' + getImages(t) + ')' }}></div>
-                                    <div className={'cardOptionLabel'}>{t}</div>
-                                </Card>
-                            );
-                        })
-                    }
-                </div>
+            <div style={{ flex: 1, overflow: 'auto', flexWrap: 'wrap', padding: '10px' }}>
+                {
+                    toppings.map(t => {
+                        return (
+                            <Card onClick={onSetPizzaToppings} className={getClassNames(reduxExtraToppings, t)}>
+                                <div className={'cardOptionImage'} style={{ backgroundImage: 'url(' + getImages(t) + ')' }}></div>
+                                <div className={'cardOptionLabel'}>{t}</div>
+                            </Card>
+                        );
+                    })
+                }
             </div>
         </div>
     );

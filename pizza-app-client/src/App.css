@@ -68,7 +68,7 @@ html, body, div#root, .App {
 .cardOptionImage {
   flex: 1;
   background-position: center;
-  background-color: #505050;
+  background-color: #8d8d8d;
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -107,7 +107,6 @@ html, body, div#root, .App {
   display: flex;
   flex-direction: column;
   overflow-Y: auto;
-  padding: 10px;
 }
 
 .pageTitle {
