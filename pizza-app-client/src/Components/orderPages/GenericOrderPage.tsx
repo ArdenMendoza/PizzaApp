@@ -1,13 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Card, CardContent, CardHeader, Avatar, IconButton } from '@material-ui/core';
-import { connect } from 'react-redux';
-import { pizzaSize } from '../../api/model';
-import { IPizzaAppState } from '../../Store/PizzaAppStore';
-import * as OrderActions from '../../Store/actions/OrderActions';
-import sizeSmall from '../../images/size_small.png';
-import sizeMedium from '../../images/size_medium.png';
-import sizeLarge from '../../images/size_large.png';
+import { Card } from '@material-ui/core';
 
 interface Props {
     pageTitle: string;
@@ -16,7 +8,7 @@ interface Props {
     selectedItemLabel: string;
 }
 
-const getIsSelectedClassName = (itemLabel: string, selectedLabel: string): string => itemLabel == selectedLabel ? 'cardOption cardSelected' : 'cardOption';
+const getIsSelectedClassName = (itemLabel: string, selectedLabel: string): string => itemLabel === selectedLabel ? 'cardOption cardSelected' : 'cardOption';
 
 export const OrderPanel: React.FunctionComponent<Props> = (props) => {
     const { pageTitle, menuItems, onMenuItemClick, selectedItemLabel } = props;

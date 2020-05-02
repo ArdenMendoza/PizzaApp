@@ -1,8 +1,6 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { AppBar, Toolbar, IconButton, Typography, InputBase } from '@material-ui/core';
-import { fade, makeStyles } from '@material-ui/core/styles';
-import SearchIcon from '@material-ui/icons/Search';
+import { AppBar, Toolbar, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import { OrderForm } from '../Components/OrderForm';
 
 

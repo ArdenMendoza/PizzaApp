@@ -1,6 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Card, CardContent, CardHeader, Avatar, IconButton } from '@material-ui/core';
+import { Card } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { extraTopping } from '../../api/model';
 import { IPizzaAppState } from '../../Store/PizzaAppStore';
@@ -17,7 +16,6 @@ import i_pineapple from '../../images/toppings/i_pineapple.jpg';
 import i_sausage from '../../images/toppings/i_sausage.jpg';
 import i_spinach from '../../images/toppings/i_spinach.jpg';
 
-
 interface Props {
 }
 interface ReduxStateProps {
@@ -31,7 +29,7 @@ const getClassNames = (reduxExtraToppings: extraTopping[], t: extraTopping): str
     // cardOptionInline-3
     let className: string = 'cardOptionInline-3';
     if (reduxExtraToppings.includes(t)) {
-        className = className + ' ' + 'cardSelected';
+        className = className + ' cardSelected';
     }
     return className;
 }

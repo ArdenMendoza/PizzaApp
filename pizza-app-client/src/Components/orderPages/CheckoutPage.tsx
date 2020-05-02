@@ -15,8 +15,8 @@ interface ReduxStateProps {
 interface DispatchProps {
 
 }
-const getPizzaSizePrice = (pizzaSize: pizzaSize): number => {
-    switch (pizzaSize) {
+const getPizzaSizePrice = (pSize: pizzaSize): number => {
+    switch (pSize) {
         case 'Small':
             return 8;
         case 'Medium':

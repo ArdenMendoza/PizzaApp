@@ -1,7 +1,5 @@
-import moduleName from 'module'
-import { combineReducers as cr, Reducer, ReducersMapObject, Action } from 'redux';
+import { Action } from 'redux';
 import { pizzaSize, crustType, extraTopping } from '../../api/model';
-
 
 export interface ISimpleAction extends Action {
     type: string;

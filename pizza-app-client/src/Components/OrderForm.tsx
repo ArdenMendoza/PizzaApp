@@ -1,9 +1,7 @@
 import React from 'react';
-import { Observable, empty } from 'rxjs';
-import { makeStyles } from '@material-ui/core/styles';
-import { Stepper, Step, StepLabel, Card, CardContent, CardHeader, Avatar, IconButton, Button } from '@material-ui/core';
+import { Stepper, Step, StepLabel, Button } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { pizzaSize, crustType, extraTopping } from '../api/model';
+import { pizzaSize, crustType } from '../api/model';
 import { IPizzaAppState } from '../Store/PizzaAppStore';
 import * as OrderActions from '../Store/actions/OrderActions';
 import { PizzaToppingsPanel } from './orderPages/PizzaToppings';
@@ -11,22 +9,14 @@ import { CheckoutPanel } from './orderPages/CheckoutPage';
 import { OrderPanel } from './orderPages/GenericOrderPage';
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
-
 import sizeSmall from '../images/size_small.png';
 import sizeMedium from '../images/size_medium.png';
 import sizeLarge from '../images/size_large.png';
 import crustThin from '../images/crust_thin.jpg';
 import crustThick from '../images/crust_thick.jpg';
-
-
 import { IOrderPageState } from '../Store/reducers/OrderReducers';
 
-
-
 interface Props {
-
-}
-interface orderFormState {
 
 }
 interface ReduxStateProps {

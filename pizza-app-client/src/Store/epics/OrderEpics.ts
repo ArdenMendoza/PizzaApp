@@ -1,9 +1,8 @@
-import { filter, mergeMap, switchMap, map } from 'rxjs/operators';
-import { empty, merge, of, Observable } from 'rxjs';
-import { IAddPizzaToppingAction, pizzaToppingAdded, IPizzaSizeSelectAction, pizzaSizeSelected, IPizzaToppingAddedAction } from "../actions/OrderActions";
+import { filter, mergeMap } from 'rxjs/operators';
+import { empty, of, Observable } from 'rxjs';
+import { IAddPizzaToppingAction, pizzaToppingAdded, IPizzaSizeSelectAction, pizzaSizeSelected } from "../actions/OrderActions";
 import { pizzaSize, extraTopping } from '../../api/model';
 import { IPizzaAppEpic } from "../PizzaAppStore";
-import { dispatch } from 'rxjs/internal/observable/pairs';
 
 export const AddToppingEpic: IPizzaAppEpic<IAddPizzaToppingAction> = (action$, state$) =>
     action$.pipe(filter(a => a.type === 'ADD_PIZZA_TOPPINGS'),
@@ -13,15 +12,18 @@ export const AddToppingEpic: IPizzaAppEpic<IAddPizzaToppingAction> = (action$, s
 
             let toppings: extraTopping[] = extraToppings;
             if (toppings.includes(action.payload)) {
-                toppings = toppings.filter(f => f != action.payload);
+                toppings = toppings.filter(f => f !== action.payload);
             } else {
                 switch (pizzaSize) {
                     case 'Small':
                         if (toppings.length === 5) return exceedLimitOfToppings(5, pizzaSize)
+                        break;
                     case 'Medium':
                         if (toppings.length === 7) return exceedLimitOfToppings(7, pizzaSize)
+                        break;
                     case 'Large':
                         if (toppings.length === 9) return exceedLimitOfToppings(9, pizzaSize)
+                        break;
                 }
                 toppings.push(action.payload);
             }
