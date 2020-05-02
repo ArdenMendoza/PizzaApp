@@ -1,10 +1,13 @@
 import { createStore, combineReducers, applyMiddleware, compose, Action } from 'redux';
 import { combineEpics, createEpicMiddleware, Epic } from 'redux-observable';
 import { AddToppingEpic, SetPizzaSizeEpic } from './epics/OrderEpics';
+
 import { orderPageReducer, IOrderPageState } from './reducers/OrderReducers';
+import { dialogReducer, IDialogState } from './reducers/DialogReducer';
 
 export interface IPizzaAppState {
     orderPage: IOrderPageState;
+    dialog: IDialogState;
 }
 
 
@@ -17,6 +20,7 @@ const configureEpic = () => {
 const configureReducer = () =>
     combineReducers<IPizzaAppState>({
         orderPage: orderPageReducer,
+        dialog: dialogReducer
     });
 
 

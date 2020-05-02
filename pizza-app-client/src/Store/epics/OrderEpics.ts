@@ -1,6 +1,8 @@
 import { filter, mergeMap } from 'rxjs/operators';
 import { empty, of, Observable } from 'rxjs';
 import { IAddPizzaToppingAction, pizzaToppingAdded, IPizzaSizeSelectAction, pizzaSizeSelected } from "../actions/OrderActions";
+import { openDialog } from "../actions/DialogActions";
+
 import { pizzaSize, extraTopping } from '../../api/model';
 import { IPizzaAppEpic } from "../PizzaAppStore";
 
@@ -47,16 +49,17 @@ export const SetPizzaSizeEpic: IPizzaAppEpic<IPizzaSizeSelectAction> = (action$,
             return empty();
         })
     );
-const exceedLimitOfToppings = (num: number, pizzaSize: pizzaSize): Observable<never> => {
-    // call custom dialog if there is still time.
-    alert('You are allowed to select ' + num + ' toppings only for ' + pizzaSize + ' pizzas.');
-    return empty();
+
+const exceedLimitOfToppings = (num: number, pizzaSize: pizzaSize): Observable<any> => {
+    return new Observable(subs => {
+        subs.next(openDialog({title: 'Too much toppings!', message: 'You are allowed to select ' + num + ' toppings only for ' + pizzaSize + ' pizzas.'}));
+        subs.complete();
+    });
 }
 
 const toppingsWillReset = (limit: number, toppingsCount: number, selectedSize: pizzaSize): Observable<any> => {
-    // call custom dialog if there is still time.
-    alert('This pizza allows only up to ' + limit + ' toppings. You currently have ' + toppingsCount + ' selected. Toppings will be reset.');
     return new Observable(subs => {
+        subs.next(openDialog({title: 'Too much toppings!', message: 'This pizza allows only up to ' + limit + ' toppings. You currently have ' + toppingsCount + ' selected. Toppings will be reset.'}))
         subs.next(pizzaToppingAdded([]));
         subs.next(pizzaSizeSelected(selectedSize));
         subs.complete();
